@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Настройки профиля - Форум{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Настройки профиля</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename=current_user.avatar) }}" alt="{{ current_user.username }}" class="rounded-circle img-thumbnail mb-3 profile-image" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h3 style="color: {{ current_user.nickname_color }}" class="text-break">{{ current_user.username }}</h3>
+                    {% if current_user.status %}
+                    <p class="text-muted text-break">{{ current_user.status }}</p>
+                    {% endif %}
+                    <div class="badge bg-warning text-dark mb-3 p-2 fs-6">
+                        <i class="fas fa-coins"></i> {{ current_user.coins }} монет
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-dark text-white">
+                                Сменить аватар
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ url_for('customize_profile') }}" enctype="multipart/form-data">
+                                    <input type="hidden" name="action" value="change_avatar">
+                                    <div class="mb-3">
+                                        <label for="avatar" class="form-label">Выберите изображение</label>
+                                        <input class="form-control" type="file" id="avatar" name="avatar" accept="image/*" required>
+                                        <div class="form-text">Поддерживаемые форматы: PNG, JPG, JPEG, GIF</div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-dark btn-lg fw-bold">📷 Загрузить аватар</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <small class="text-muted">Бесплатно - не требует монет</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-secondary text-white">
+                                Изменить цвет ника
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ url_for('customize_profile') }}">
+                                    <input type="hidden" name="action" value="change_color">
+                                    <div class="mb-3">
+                                        <label for="nickname_color" class="form-label">Выберите цвет</label>
+                                        <input type="color" class="form-control form-control-color w-100" id="nickname_color" name="nickname_color" value="{{ current_user.nickname_color }}" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-dark" {% if current_user.coins < 5 %}disabled{% endif %}>
+                                            Изменить цвет (5 <i class="fas fa-coins"></i>)
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <small class="text-muted">Стоимость: 5 монет</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white">
+                                Изменить статус профиля
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{{ url_for('customize_profile') }}">
+                                    <input type="hidden" name="action" value="change_status">
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Ваш статус</label>
+                                        <input type="text" class="form-control" id="status" name="status" placeholder="Например: Любитель котиков" value="{{ current_user.status }}" maxlength="100">
+                                        <div class="form-text">Максимум 100 символов</div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-dark" {% if current_user.coins < 3 %}disabled{% endif %}>
+                                            Обновить статус (3 <i class="fas fa-coins"></i>)
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <small class="text-muted">Стоимость: 3 монеты</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid">
+                    <a href="{{ url_for('profile', username=current_user.username) }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Вернуться к профилю
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Как получить монеты?</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-secondary">
+                    <h5>Способы получения монет:</h5>
+                    <ul>
+                        <li>Оставляйте комментарии к постам - <strong>1 монета за каждый комментарий</strong></li>
+                        <li>Создавайте интересные посты - вскоре мы будем начислять монеты за посты с большим количеством комментариев</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

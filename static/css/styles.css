@@ -1,0 +1,223 @@
+/* Общие стили */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 56px; /* Для фиксированной навигации */
+    touch-action: manipulation; /* Улучшение тач-интерфейса */
+    -webkit-tap-highlight-color: transparent; /* Убрать подсветку при касании */
+}
+
+/* Основной контент */
+.main-content {
+    padding-bottom: 20px;
+    min-height: calc(100vh - 150px);
+}
+
+/* Стили для аватаров */
+.avatar-mini {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+}
+
+/* Стили для карточек */
+.card {
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 16px; /* Отступ между карточками */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* На мобильных устройствах отключаем hover-эффект */
+@media (hover: none) {
+    .card:hover {
+        transform: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Стили для форм */
+.form-control:focus {
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+}
+
+/* Увеличиваем размер полей для лучшей работы на тач-устройствах */
+.form-control, .btn {
+    font-size: 16px; /* Оптимальный размер для iOS */
+    padding: 10px 15px; /* Увеличиваем область касания */
+}
+
+textarea.form-control {
+    min-height: 100px; /* Больше высота для удобного ввода */
+}
+
+/* Стили для кнопок */
+.btn-primary {
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn-primary:hover {
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.btn-outline-primary {
+    color: #212529;
+    border-color: #212529;
+}
+
+.btn-outline-primary:hover {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+}
+
+/* Навигация */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Улучшаем доступность на мобильных устройствах */
+.navbar-nav .nav-link, .dropdown-item {
+    padding: 10px 15px; /* Увеличиваем область касания */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 150px;
+    }
+    
+    .jumbotron {
+        padding: 2rem !important;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    /* Улучшаем читаемость на мобильных */
+    .card-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Более компактный профиль */
+    .profile-image {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    /* Убираем сложные эффекты на мобильных */
+    .card {
+        transition: none;
+    }
+    
+    /* Улучшаем кнопки на мобильных */
+    .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    /* Более компактные отступы на мобильных */
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    /* Фиксим отступ от навбара */
+    body {
+        padding-top: 62px;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .badge {
+        font-size: 0.7rem;
+    }
+}
+
+/* Стили для комментариев */
+.comments-list {
+    padding: 0;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.comment {
+    padding: 10px 0;
+}
+
+/* На мобильных ограничиваем максимальную высоту списка комментариев */
+@media (max-width: 768px) {
+    .comments-list {
+        max-height: 400px;
+    }
+}
+
+/* Стили для пагинации */
+.pagination .page-item.active .page-link {
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.pagination .page-link {
+    color: #212529;
+    padding: 8px 12px; /* Увеличиваем область касания */
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.alert {
+    animation: fadeIn 0.5s;
+}
+
+/* Стили для селектора цвета */
+input[type="color"] {
+    height: 50px;
+    cursor: pointer;
+    width: 100%; /* Полная ширина на мобильных */
+}
+
+/* Фиксы для iOS */
+input[type="text"], 
+input[type="password"], 
+textarea {
+    -webkit-appearance: none;
+    border-radius: 4px;
+} 

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль {{ user.username }} - Форум{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-4 col-md-5 mb-4">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Профиль пользователя</h4>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename=user.avatar) }}" alt="{{ user.username }}" class="rounded-circle img-thumbnail mb-3 profile-image" style="width: 180px; height: 180px; object-fit: cover;">
+                <h3 style="color: {{ user.nickname_color }}" class="text-break">{{ user.username }}</h3>
+                {% if user.status %}
+                <p class="text-muted text-break">{{ user.status }}</p>
+                {% endif %}
+                <div class="badge bg-warning text-dark mb-3 p-2 fs-6">
+                    <i class="fas fa-coins"></i> {{ user.coins }} монет
+                </div>
+                <p class="text-muted">На форуме с {{ user.joined_at.strftime('%d.%m.%Y') }}</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
+                    {% if user == current_user %}
+                    <a href="{{ url_for('customize_profile') }}" class="btn btn-dark mb-2">
+                        <i class="fas fa-cog"></i> Настройки профиля
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('forum') }}" class="btn btn-outline-secondary mb-2">
+                        <i class="fas fa-arrow-left"></i> К форуму
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-7">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Посты пользователя</h4>
+            </div>
+            <div class="card-body">
+                {% if posts %}
+                <div class="list-group">
+                    {% for post in posts %}
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
+                            <h5 class="mb-1 text-break">{{ post.title }}</h5>
+                            <small class="text-nowrap">{{ post.created_at.strftime('%d.%m.%Y') }}</small>
+                        </div>
+                        <p class="mb-1 text-break">{{ post.content|truncate(150) }}</p>
+                        <small class="text-muted">
+                            <i class="far fa-comments"></i> {{ post.comments|length }} комментариев
+                        </small>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <p>У пользователя пока нет постов.</p>
+                    {% if user == current_user %}
+                    <div class="d-grid">
+                        <a href="{{ url_for('new_post') }}" class="btn btn-dark">Создать пост</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

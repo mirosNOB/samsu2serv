@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Вход - Форум{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Вход на форум</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Для входа на форум просто введите ваш никнейм. Регистрация не требуется!</p>
+                
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Никнейм</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Введите ваш никнейм" required>
+                        <div class="form-text">Если такого никнейма нет, он будет создан автоматически.</div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark btn-lg">Войти</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Добро пожаловать на наш форум!
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
